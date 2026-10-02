@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+    background: #ffffff !important;
+  color: #1f2937;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: Arial, serif;
+  
+}
+
+#app {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 100vh;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+/* Menubar на всю ширину */
+.p-menubar {
+  width: 100% !important;
+  max-width: 100% !important;
+  border-radius: 0 !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  box-sizing: border-box;
+}
+
+.app-header {
+  width: 100% !important;
+  display: block;
+}
+
+.app-content {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto !important;
+  padding: 1.5rem 2rem;
+  box-sizing: border-box;
+}
+.header-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}

@@ -1,62 +1,52 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
-export const useAuthStore = defineStore('auth', {
-    state: () => ({
+export const useAuthStore = defineStore('auth', { //Объявление хранилища
+    state: () => ({ //состояние хранилища
         user: null,        // Данные пользователя
         token: localStorage.getItem('token') || null,  // Токен из localStorage
         isAuthenticated: false,  // Статус аутентификации
-        errorMessage: "",
+        errorMessage: "", //Текст ошибки для отображения в форме входа
     }),
     actions: {
         async login(credentials) {
-            this.errorMessage = "";
+            this.errorMessage = ""; //Обнуляет прошлую ошибку.
             try {
-                const response  = await axios.post('http://127.0.0.1:8000/api/login', credentials);
+                const response  = await axios.post('http://127.0.0.1:8000/api/login', credentials); //Отправляет POST-запрос на /api/login с логином и паролем (credentials = {email, password}).
                 this.token = response.data.token;
                 this.user = response.data.user;
                 this.isAuthenticated = true;
-                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('token', response.data.token); //Токен дублируется в localStorage 
             } catch (error) {
-                if (error.response) {
-                    // The request was made and the server responded with a status code
-                    // that falls out of the range of 2xx
+                if (error.response) {        //сервер ответил ошибкой         
                     this.errorMessage = error.response.data.message;
                     console.log(error);
-                } else if (error.request) {
-                    // The request was made but no response was received
-                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                    // http.ClientRequest in node.js
+                } else if (error.request) {//запрос ушёл, но ответа нет (сервер выключен)
+
                     this.errorMessage = error.message;
                     console.log(error);
                 } else {
-                    // Something happened in setting up the request that triggered an Error
                     console.log(error);
                 }
             }
         },
-        async getUser()   {
+        async getUser()   {//получение данных пользователя по токену
             this.errorMessage = "";
             try {
-                const response = await axios.get(backendUrl + '/user',
+                const response = await axios.get(backendUrl + '/user', //Делает GET-запрос на /user, передавая токен в заголовке Authorization: Bearer <token>
                     { headers: {
                         Authorization: 'Bearer ' + this.token
                     }});
                 this.user = response.data;
             } catch (error) {
                 if (error.response) {
-                    // The request was made and the server responded with a status code
-                    // that falls out of the range of 2xx
                     this.errorMessage = error.response.data.message;
                     console.log(error);
                 } else if (error.request) {
-                    // The request was made but no response was received
-                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                    // http.ClientRequest in node.js
+
                     this.errorMessage = error.message;
                     console.log(error);
                 } else {
-                    // Something happened in setting up the request that triggered an Error
                     console.log(error);
                 }
             }
@@ -66,7 +56,7 @@ export const useAuthStore = defineStore('auth', {
                 const response = await axios.get(backendUrl + '/logout',
                     { headers: {
                         Authorization: 'Bearer ' + this.token
-                    }});
+                    }});//Очищает всё состояние: token, user, isAuthenticated.
                 this.errorCode = response.data.code;
                 this.errorMessage = response.data.message;
                 this.token = null;
