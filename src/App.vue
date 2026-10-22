@@ -3,7 +3,6 @@
     <header class="app-header">
       <div class="header-inner">
         <Menubar :model="items">
-          <!-- Слот #item — пункты меню с иконками -->
           <template #item="{ item }">
             <router-link v-if="item.route" :to="item.route" class="menu-item">
               <span :class="item.icon" />
@@ -14,7 +13,6 @@
           <!-- Слот #end — кнопка «Добавить», поиск и иконка входа/выхода -->
           <template #end>
           <div class="toolbar-right">
-            <!-- Кнопка «Добавить» — всегда -->
             <Button
               label="Добавить новый рецепт"
               icon="pi pi-plus"
@@ -32,7 +30,7 @@
               <Button icon="pi pi-search" class="search-btn" />
             </div>
 
-            <!-- Авторизован: только иконка профиля, ведёт на /profile -->
+            <!-- Авторизован: ведёт на /profile -->
             <router-link v-if="isAuthenticated && user" to="/profile">
               <Button
                 icon="pi pi-user"
@@ -110,7 +108,7 @@ export default {
 </script>
 
 <style scoped>
-/* ───── Шапка ───── */
+/* Шапка */
 .app-header {
   width: 100%;
   background: #fff;
@@ -148,7 +146,7 @@ export default {
   margin-left: auto;
 }
 
-/* ───── Пункты меню ───── */
+/* Пункты меню  */
 .menu-item {
   display: flex;
   align-items: center;
@@ -168,27 +166,26 @@ export default {
   margin-left: 0.25rem;
 }
 
-/* ───── Правая часть шапки ───── */
+/* Правая часть шапки  */
 .toolbar-right {
   display: flex;
   flex-direction: row;
   align-items: center;
   flex-wrap: nowrap;
   gap: 0.75rem;
-  flex: 1 1 auto;       /* ← растягиваем весь правый блок */
+  flex: 1 1 auto;       
   justify-content: flex-end;
 }
 
-/* Группа «поиск + лупа» — без зазора между элементами */
+/* Группа «поиск + лупа» */
 .search-group {
   display: flex;
   align-items: center;
   gap: 0;
-  flex: 1 1 auto;       /* ← тянется вместе с toolbar-right */
+  flex: 1 1 auto;      
   min-width: 500px;
   
 }
-/* Поле поиска — растягивается и получает закругление слева */
 .search-box {
   flex: 1 1 auto;
 }
@@ -199,7 +196,7 @@ export default {
   border-bottom-right-radius: 0;
 }
 
-/* Кнопка лупы — вплотную, скругление справа */
+
 .search-btn {
   background: #2563eb;
   border-color: #2563eb;
@@ -220,7 +217,7 @@ export default {
   white-space: nowrap;
 }
 
-/* ───── Кнопки ───── */
+/*  Кнопки  */
 .add-btn {
   background: #2563eb;
   border-color: #2563eb;
@@ -236,7 +233,7 @@ export default {
   background: #f3f4f6;
 }
 
-/* ───── Контент и подвал ───── */
+/* Контент и подвал  */
 .app-content {
   width: 100%;
   max-width: 1100px;
